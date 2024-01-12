@@ -36,12 +36,12 @@ public partial class BangumiApi
 #if EMBY
                 var options = new HttpRequestOptions
                 {
-                    Url = "https://api.bgm.tv/v0/search/subjects",
+                    Url = "https://n.kono-dio.top/bgmtv/v0/search/subjects",
                     RequestHttpContent = new JsonContent(searchParams)
                 };
                 var jsonString = await SendRequest("POST", options);
 #else
-                var request = new HttpRequestMessage(HttpMethod.Post, "https://api.bgm.tv/v0/search/subjects");
+                var request = new HttpRequestMessage(HttpMethod.Post, "https://n.kono-dio.top/bgmtv/v0/search/subjects");
                 request.Content = new JsonContent(searchParams);
                 var jsonString = await SendRequest(request, token);
 #endif
@@ -51,7 +51,7 @@ public partial class BangumiApi
             }
             else
             {
-                var url = $"https://api.bgm.tv/search/subject/{Uri.EscapeDataString(keyword)}?responseGroup=large";
+                var url = $"https://n.kono-dio.top/bgmtv/search/subject/{Uri.EscapeDataString(keyword)}?responseGroup=large";
                 if (type != null)
                     url += $"&type={(int)type}";
                 var searchResult = await SendRequest<SearchResult<Subject>>(url, token);
@@ -68,7 +68,7 @@ public partial class BangumiApi
 
     public async Task<Subject?> GetSubject(int id, CancellationToken token)
     {
-        return await SendRequest<Subject>($"https://api.bgm.tv/v0/subjects/{id}", token);
+        return await SendRequest<Subject>($"https://n.kono-dio.top/bgmtv/v0/subjects/{id}", token);
     }
 
     public async Task<List<Episode>?> GetSubjectEpisodeList(int id, EpisodeType? type, double episodeNumber, CancellationToken token)
@@ -127,7 +127,7 @@ public partial class BangumiApi
 
     public async Task<DataList<Episode>?> GetSubjectEpisodeListWithOffset(int id, EpisodeType? type, double offset, CancellationToken token)
     {
-        var url = $"https://api.bgm.tv/v0/episodes?subject_id={id}&limit={PageSize}";
+        var url = $"https://n.kono-dio.top/bgmtv/v0/episodes?subject_id={id}&limit={PageSize}";
         if (type != null)
             url += $"&type={(int)type}";
         if (offset > 0)
@@ -137,7 +137,7 @@ public partial class BangumiApi
 
     public async Task<List<RelatedSubject>?> GetSubjectRelations(int id, CancellationToken token)
     {
-        return await SendRequest<List<RelatedSubject>>($"https://api.bgm.tv/v0/subjects/{id}/subjects", token);
+        return await SendRequest<List<RelatedSubject>>($"https://n.kono-dio.top/bgmtv/v0/subjects/{id}/subjects", token);
     }
 
     public async Task<Subject?> SearchNextSubject(int id, CancellationToken token)
@@ -181,14 +181,14 @@ public partial class BangumiApi
     public async Task<List<PersonInfo>> GetSubjectCharacters(int id, CancellationToken token)
     {
         var result = new List<PersonInfo>();
-        var characters = await SendRequest<List<RelatedCharacter>>($"https://api.bgm.tv/v0/subjects/{id}/characters", token);
+        var characters = await SendRequest<List<RelatedCharacter>>($"https://n.kono-dio.top/bgmtv/v0/subjects/{id}/characters", token);
         characters?.ForEach(character => result.AddRange(character.ToPersonInfos()));
         return result;
     }
 
     public async Task<List<RelatedPerson>?> GetSubjectPersons(int id, CancellationToken token)
     {
-        return await SendRequest<List<RelatedPerson>>($"https://api.bgm.tv/v0/subjects/{id}/persons", token);
+        return await SendRequest<List<RelatedPerson>>($"https://n.kono-dio.top/bgmtv/v0/subjects/{id}/persons", token);
     }
 
     public async Task<List<PersonInfo>> GetSubjectPersonInfos(int id, CancellationToken token)
@@ -202,11 +202,11 @@ public partial class BangumiApi
 
     public async Task<Episode?> GetEpisode(int id, CancellationToken token)
     {
-        return await SendRequest<Episode>($"https://api.bgm.tv/v0/episodes/{id}", token);
+        return await SendRequest<Episode>($"https://n.kono-dio.top/bgmtv/v0/episodes/{id}", token);
     }
 
     public async Task<PersonDetail?> GetPerson(int id, CancellationToken token)
     {
-        return await SendRequest<PersonDetail>($"https://api.bgm.tv/v0/persons/{id}", token);
+        return await SendRequest<PersonDetail>($"https://n.kono-dio.top/bgmtv/v0/persons/{id}", token);
     }
 }
